@@ -29,11 +29,18 @@ SRC_B	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
 OBJ		= $(SRC:.c=.o)
 OBJ_B	= $(SRC_B:.c=.o)
 
+COLOR_WHITE		= \e[00m
+COLOR_GREEN		= \e[32m
+COLOR_RED		= \e[91m
+COLOR_BLUE		= \e[34m
+
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(COLOR_GREEN)Compiling $(COLOR_WHITE)$(<:.c=)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(INC)
-	$(LIB) $(NAME) $(INC) $(OBJ)
+	@$(LIB) $(NAME) $(INC) $(OBJ)
+	@echo "$(COLOR_GREEN)Compiled Successfully$(COLOR_WHITE)"
 
 all: $(NAME)
 
@@ -41,10 +48,12 @@ bonus: $(NAME) $(OBJ_B)
 	$(LIB) $(NAME) $(OBJ_B)
 
 clean:
-	${RM} $(OBJ) $(OBJ_B)
+	@echo "$(COLOR_RED)Removing $(COLOR_WHITE)all objects"
+	@${RM} $(OBJ) $(OBJ_B)
 
 fclean: clean
-	${RM} $(NAME)
+	@echo "$(COLOR_RED)Removing $(COLOR_WHITE)$(NAME)"
+	@${RM} $(NAME)
 
 re: fclean all
 
